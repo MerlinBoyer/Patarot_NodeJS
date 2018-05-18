@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Micro internet potato salad</title>
+
+	<style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #loginform {z-index: 10; width: 100%; height: 100%; text-align: center; background-color: white; }
+    </style>
+
+	<script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+    <script>
+    var socket = io();
+    var pseudo = '';
+    var logged = 0;
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	</head>
+	<body>
+
+	<div id="login" >
+    	<form action="" id="loginform">
+        	<h1> bienvenue</h1>
+        	<input type="text" name="login" id="pseudo" placeholder="pseudo" />
+    	    <input type="submit" id="boutonsesmorts" value="go !" />
+        	<p id="paragraphe"> <br /><br /><br /><br /><br /><br />bah oui c'est clair !  </p>
+    	</form>
+  	</div>
+
+    <canvas id="canvas" width="canvas" height="canvas">Votre navigateur ne supporte pas HTML5, veuillez le mettre à jour pour jouer.</canvas>
+
+	<script>
+	  var tab_personnages = new Array();
+
+	  $('#loginform').submit(function(event){
+	    event.preventDefault();
+	    if ($('#pseudo').val() != ""){
+	        pseudo = $('#pseudo').val();
+	        socket.emit('login_required', $('#pseudo').val());
+	    }
+	    else{
+	        window.alert('rentrer un pseudo !');
+	    };
+	  });
+
+	  
+	  socket.on('mauvaisnombatard', function(){
+	    window.alert('peudo deja pris deso pas deso');
+	  })
+
+	</script>
+
+	<script type="text/javascript" src="js/classes/Tileset.js"></script>
+	<script type="text/javascript" src="js/classes/map.js"></script>
+	<script type="text/javascript" src="js/classes/personnage.js"></script>
+	<script type="text/javascript" src="js/classes/bombes.js"></script>
+	<script type="text/javascript" src="js/classes/sprite.js"></script>
+	<script type="text/javascript" src="js/classes/mur.js"></script>
+	<script type="text/javascript" src="js/classes/powerup.js"></script>
+    <script type="text/javascript" src="js/rpg.js"></script>
+
+	</body>
+</html>
